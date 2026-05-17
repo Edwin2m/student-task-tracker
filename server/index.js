@@ -13,6 +13,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Student Task Tracker API is running' })
 })
 
+app.get('/test', (req, res) => {
+  res.json({ message: 'Test route works' })
+})
+
 app.get('/tasks', db.getTasks)
 app.get('/tasks/:id', db.getTaskById)
 app.post('/tasks', db.createTask)

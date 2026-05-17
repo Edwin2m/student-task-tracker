@@ -7,15 +7,19 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   port: Number(process.env.DB_PORT),
+  ssl: {
+    rejectUnauthorized: false,
+  },
 })
 
 const getTasks = (req, res) => {
   pool.query('SELECT * FROM tasks ORDER BY id ASC', (error, results) => {
     if (error) {
-      console.error(error)
+      console.error('Get tasks error:', error)
       res.status(500).json({ error: 'Database error' })
       return
     }
+
     res.status(200).json(results.rows)
   })
 }
@@ -25,10 +29,11 @@ const getTaskById = (req, res) => {
 
   pool.query('SELECT * FROM tasks WHERE id = $1', [id], (error, results) => {
     if (error) {
-      console.error(error)
+      console.error('Get task error:', error)
       res.status(500).json({ error: 'Database error' })
       return
     }
+
     res.status(200).json(results.rows[0])
   })
 }
@@ -41,10 +46,11 @@ const createTask = (req, res) => {
     [title, description, due_date],
     (error, results) => {
       if (error) {
-        console.error(error)
+        console.error('Create task error:', error)
         res.status(500).json({ error: 'Database error' })
         return
       }
+
       res.status(201).json(results.rows[0])
     }
   )
@@ -59,10 +65,11 @@ const updateTask = (req, res) => {
     [title, description, due_date, completed, id],
     (error, results) => {
       if (error) {
-        console.error(error)
+        console.error('Update task error:', error)
         res.status(500).json({ error: 'Database error' })
         return
       }
+
       res.status(200).json(results.rows[0])
     }
   )
@@ -73,11 +80,15 @@ const deleteTask = (req, res) => {
 
   pool.query('DELETE FROM tasks WHERE id = $1 RETURNING *', [id], (error, results) => {
     if (error) {
-      console.error(error)
+      console.error('Delete task error:', error)
       res.status(500).json({ error: 'Database error' })
       return
     }
-    res.status(200).json({ message: 'Task deleted', task: results.rows[0] })
+
+    res.status(200).json({
+      message: 'Task deleted',
+      task: results.rows[0],
+    })
   })
 }
 
