@@ -9,7 +9,7 @@ function App() {
   const [dueDate, setDueDate] = useState('')
   const [filter, setFilter] = useState('all')
 
-  const API_URL = 'http://localhost:5000/tasks'
+  const API_URL = 'https://student-task-tracker-2hhs.onrender.com/tasks'
 
   const fetchTasks = async () => {
     try {
