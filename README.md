@@ -33,7 +33,8 @@ Deployment:
 
 ## Installation
 
-### Backend
+Backend:
+https://student-task-tracker-2hhs.onrender.com
 
 ```bash
 cd server
