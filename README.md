@@ -31,14 +31,6 @@ Deployment:
 - Render
 - Vercel
 
-## Live Demo
-
-Frontend:
-https://YOUR-VERCEL-URL
-
-Backend API:
-https://student-task-tracker-2hhs.onrender.com/tasks
-
 ## Installation
 
 ### Backend
